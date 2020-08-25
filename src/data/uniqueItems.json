@@ -1,0 +1,578 @@
+[
+    {
+        "name": "Atma's Scarab",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 60,
+        "rlvl": 60,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "att%": { "min": 20, "max": 20 }
+            },
+            {
+                "dmg-pois": { "min": 102, "max": 102, "duration": 100 }
+            },
+            {
+                "hit-skill": { "chance%": 5, "lvl": 2, "skill": "Amplify Damage" }
+            },
+            {
+                "light": { "min": 3, "max": 3 }
+            },
+            {
+                "res-pois": { "min": 75, "max": 75 }
+            },
+            {
+                "thorns": { "min": 5, "max": 5 }
+            }
+        ]
+    },
+    {
+        "name": "Bul Katho's Wedding Band",
+        "enabled": true,
+        "ladder": false,
+        "code": "rin",
+        "rarity": 1,
+        "ilvl": 66,
+        "rlvl": 58,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "allskills": { "min": 1, "max": 1 }
+            },
+            {
+                "hp/lvl": 4
+            },
+            {
+                "lifesteal": { "min": 3, "max": 5 }
+            },
+            {
+                "stam": { "min": 50, "max": 50 }
+            }
+        ]
+    },
+    {
+        "name": "Carrion Wind",
+        "enabled": true,
+        "ladder": false,
+        "code": "rin",
+        "rarity": 3,
+        "ilvl": 68,
+        "rlvl": 60,
+        "costmulti": 3,
+        "affixes": [
+            {
+                "ac-miss": { "min": 100, "max": 160 }
+            },
+            {
+                "charged-skill": { "charges": 15, "lvl": 21, "skill": "Poison Creeper" }
+            },
+            {
+                "dmg-to-mana": { "min": 10, "max": 10 }
+            },
+            {
+                "gethit-skill": { "chance%": 10, "lvl": 10, "skill": "Poison Nova" }
+            },
+            {
+                "hit-skill": { "chance%": 8, "lvl": 13, "skill": "Twister" }
+            },
+            {
+                "lifesteal": { "min": 6, "max": 9 }
+            },
+            {
+                "res-pois": { "min": 55, "max": 55 }
+            }
+        ]
+    },
+    {
+        "name": "Crescent Moon",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 58,
+        "rlvl": 50,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "dmg-to-mana": { "min": 10, "max": 10 }
+            },
+            {
+                "lifesteal": { "min": 3, "max": 6 }
+            },
+            {
+                "light": { "min": -2, "max": -2 }
+            },
+            {
+                "mana": { "min": 45, "max": 45 }
+            },
+            {
+                "manasteal": { "min": 11, "max": 15 }
+            },
+            {
+                "red-mag": { "min": 10, "max": 10 }
+            }
+        ]
+    },
+    {
+        "name": "Dwarf Star",
+        "enabled": true,
+        "ladder": false,
+        "code": "rin",
+        "rarity": 10,
+        "ilvl": 53,
+        "rlvl": 45,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "abs-fire%": { "min": 15, "max": 15 }
+            },
+            {
+                "gold%": { "min": 100, "max": 100 }
+            },
+            {
+                "hp": { "min": 40, "max": 40 }
+            },
+            {
+                "red-mag": { "min": 12, "max": 15 }
+            },
+            {
+                "regen-stam": { "min": 15, "max": 15 }
+            },
+            {
+                "stam": { "min": 40, "max": 40 }
+            }
+        ]
+    },
+    {
+        "name": "Highlord's Wrath",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 73,
+        "rlvl": 65,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "allskills": { "min": 1, "max": 1 }
+            },
+            {
+                "deadly/lvl": 3
+            },
+            {
+                "dmg-ltng": { "min": 1, "max": 30 }
+            },
+            {
+                "light-thorns": { "min": 15, "max": 15 }
+            },
+            {
+                "res-ltng": { "min": 35, "max": 35 }
+            },
+            {
+                "swing2": { "min": 20, "max": 20 }
+            }
+        ]
+    },
+    {
+        "name": "Manald Heal",
+        "enabled": true,
+        "ladder": false,
+        "code": "rin",
+        "rarity": 15,
+        "ilvl": 20,
+        "rlvl": 15,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "hp": { "min": 20, "max": 20 }
+            },
+            {
+                "manasteal": { "min": 4, "max": 7 }
+            },
+            {
+                "regen": { "min": 5, "max": 8 }
+            },
+            {
+                "regen-mana": { "min": 20, "max": 20 }
+            }
+        ]
+    },
+    {
+        "name": "Mara's Kaleidoscope",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 80,
+        "rlvl": 67,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "allskills": { "min": 2, "max": 2 }
+            },
+            {
+                "all-stats": { "min": 5, "max": 5 }
+            },
+            {
+                "res-all": { "min": 20, "max": 30 }
+            }
+        ]
+    },
+    {
+        "name": "Metalgrid",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 85,
+        "rlvl": 81,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "ac": { "min": 300, "max": 350 }
+            },
+            {
+                "att": { "min": 400, "max": 450 }
+            },
+            {
+                "charged-skill": { "charges": 11, "lvl": 22, "skill": "Iron Golem" }
+            },
+            {
+                "charged-skill": { "charges": 20, "lvl": 12, "skill": "Iron Maiden" }
+            },
+            {
+                "res-all": { "min": 25, "max": 35 }
+            }            
+        ]
+    },
+    {
+        "name": "Nagelring",
+        "enabled": true,
+        "ladder": false,
+        "code": "rin",
+        "rarity": 15,
+        "ilvl": 10,
+        "rlvl": 7,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "att": { "min": 50, "max": 75 }
+            },
+            {
+                "mag%": { "min": 15, "max": 30 }
+            },
+            {
+                "red-mag": { "min": 3, "max": 3 }
+            },
+            {
+                "thorns": { "min": 3, "max": 3 }
+            }
+        ]
+    },
+    {
+        "name": "Nature's Peace",
+        "enabled": true,
+        "ladder": true,
+        "code": "rin",
+        "rarity": 3,
+        "ilvl": 77,
+        "rlvl": 69,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "charged-skill": { "charges": 27, "lvl": 5, "skill": "Oak Sage" }
+            },
+            {
+                "noheal": true
+            },
+            {
+                "red-dmg": { "min": 7, "max": 11 }
+            },
+            {
+                "res-pois": { "min": 20, "max": 30 }
+            },
+            {
+                "rip": true
+            }
+        ]
+    },
+    {
+        "name": "Nokozan Relic",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 20,
+        "ilvl": 14,
+        "rlvl": 10,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "balance2": { "min": 20, "max": 20 }
+            },
+            {
+                "dmg-fire": { "min": 3, "max": 6 }
+            },
+            {
+                "light": { "min": 3, "max": 3 }
+            },
+            {
+                "res-fire": { "min": 50, "max": 50 }
+            },
+            {
+                "res-fire-max": { "min": 10, "max": 10 }
+            }
+        ]
+    },
+    {
+        "name": "Raven Frost",
+        "enabled": true,
+        "ladder": false,
+        "code": "rin",
+        "rarity": 10,
+        "ilvl": 53,
+        "rlvl": 45,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "abs-cold%": { "min": 20, "max": 20 }
+            },
+            {
+                "att": { "min": 150, "max": 250 }
+            },
+            {
+                "dex": { "min": 15, "max": 20 }
+            },
+            {
+                "dmg-cold": { "min": 15, "max": 45, "duration": 100 }
+            },
+            {
+                "mana": { "min": 40, "max": 40 }
+            },
+            {
+                "nofreeze": true
+            }
+        ]
+    },
+    {
+        "name": "Saracen's Chance",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 55,
+        "rlvl": 47,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "all-stats": { "min": 12, "max": 12 }
+            },
+            {
+                "gethit-skill": { "chance%": 10, "lvl": 2, "skill": "Iron Maiden" }
+            },
+            {
+                "res-all": { "min": 15, "max": 25 }
+            }
+        ]
+    },
+    {
+        "name": "Seraph's Hymn",
+        "enabled": true,
+        "ladder": true,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 73,
+        "rlvl": 65,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "allskills": { "min": 2, "max": 2 }
+            },
+            {
+                "att-demon": { "min": 150, "max": 250 }
+            },
+            {
+                "att-undead": { "min": 150, "max": 250 }
+            },
+            {
+                "dmg-demon": { "min": 25, "max": 50 }
+            },
+            {
+                "dmg-undead": { "min": 25, "max": 50 }
+            },
+            {
+                "light": { "min": 2, "max": 2 }
+            },
+            {
+                "skilltab": { "min": 1, "max": 2, "category": "Defensive Auras (Paladin Only)" }
+            }
+        ]
+    },
+    {
+        "name": "Stone of Jordan",
+        "enabled": true,
+        "ladder": false,
+        "code": "rin",
+        "rarity": 1,
+        "ilvl": 39,
+        "rlvl": 29,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "allskills": { "min": 1, "max": 1 }
+            },
+            {
+                "dmg-ltng": { "min": 1, "max": 12 }
+            },
+            {
+                "mana": { "min": 20, "max": 20 }
+            },
+            {
+                "mana%": { "min": 25, "max": 25 }
+            }
+        ]
+    },
+    {
+        "name": "The Cat's Eye",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 58,
+        "rlvl": 50,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "ac": { "min": 100, "max": 100 }
+            },
+            {
+                "ac-miss": { "min": 100, "max": 100 }
+            },
+            {
+                "dex": { "min": 25, "max": 25 }
+            },
+            {
+                "move2": { "min": 30, "max": 30 }
+            },
+            {
+                "swing2": { "min": 20, "max": 20 }
+            }
+        ]
+    },
+    {
+        "name": "The Eye of Etlich",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 20,
+        "rlvl": 15,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "allskills": { "min": 1, "max": 1 }
+            },
+            {
+                "ac-miss": { "min": 10, "max": 40 }
+            },
+            {
+                "dmg-cold": { "min": [1, 2], "max": [3, 5], "duration": [50, 250] }
+            },
+            {
+                "lifesteal": { "min": 3, "max": 7 }
+            },
+            {
+                "light": { "min": 1, "max": 5 }
+            }
+        ]
+    },
+    {
+        "name": "The Mahim-Oak Curio",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 10,
+        "ilvl": 34,
+        "rlvl": 25,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "ac": { "min": 10, "max": 10 }
+            },
+            {
+                "ac%": { "min": 10, "max": 10 }
+            },
+            {
+                "all-stats": { "min": 10, "max": 10 }
+            },
+            {
+                "att%": { "min": 10, "max": 10 }
+            },
+            {
+                "res-all": { "min": 10, "max": 10 }
+            }
+        ]
+    },
+    {
+        "name": "The Rising Sun",
+        "enabled": true,
+        "ladder": false,
+        "code": "amu",
+        "rarity": 5,
+        "ilvl": 73,
+        "rlvl": 65,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "abs-fire/lvl": 6
+            },
+            {
+                "dmg-fire": { "min": 24, "max": 48 }
+            },
+            {
+                "fireskill": { "min": 2, "max": 2 }
+            },
+            {
+                "gethit-skill": { "chance%": 2, "lvl": [13, 19], "skill": "Meteor" }
+            },
+            {
+                "light": { "min": 4, "max": 4 }
+            },
+            {
+                "regen": { "min": 10, "max": 10 }
+            }
+        ]
+    },
+    {
+        "name": "Wisp Projector",
+        "enabled": true,
+        "ladder": false,
+        "code": "rin",
+        "rarity": 1,
+        "ilvl": 84,
+        "rlvl": 76,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "abs-ltng%": { "min": 10, "max": 20 }
+            },
+            {
+                "charged-skill": { "charges": 13, "lvl": 5, "skill": "Heart of Wolverine" }
+            },
+            {
+                "charged-skill": { "charges": 15, "lvl": 2, "skill": "Oak Sage" }
+            },
+            {
+                "charged-skill": { "charges": 11, "lvl": 7, "skill": "Spirit of Barbs" }
+            },
+            {
+                "hit-skill": { "chance%": 10, "lvl": 16, "skill": "Lightning" }
+            },
+            {
+                "mag%": { "min": 10, "max": 20 }
+            }
+        ]
+    }
+]
