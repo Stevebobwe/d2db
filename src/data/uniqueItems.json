@@ -13,7 +13,7 @@
                 "att%": { "min": 20, "max": 20 }
             },
             {
-                "dmg-pois": { "min": 102, "max": 102, "duration": 100 }
+                "dmg-pois": { "min": 40, "max": 40, "duration": 4 }
             },
             {
                 "hit-skill": { "chance%": 5, "lvl": 2, "skill": "Amplify Damage" }

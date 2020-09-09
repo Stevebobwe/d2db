@@ -7,13 +7,13 @@ function UniqueItems() {
   console.log('UniqueItemsData:');
   console.log(UniqueItemsData);
 
-  const uniqueItem = UniqueItemsData.map(({name, enabled, ladder, code, rarity, ilvl, rlvl, costmulti, affixes }) => {
+  const uniqueItem = UniqueItemsData.map(({name, enabled, ladder, code, rarity, ilvl, rlvl, costmulti, affixes : affixesArray }) => {
     console.log('affixes:');
-    console.log(affixes);
+    console.log(affixesArray);
 
-    const affix = affixes.map((index) => {
-      let result;
-      for (const [key, value] of Object.entries(index)) {
+    const affixes = affixesArray.map((affixObject) => {
+      let affix;
+      for (const [key, value] of Object.entries(affixObject)) {
         console.log(key);
         console.log(value);
 
@@ -25,6 +25,11 @@ function UniqueItems() {
         function getMinMax(min, max) {
           if (min !== max) return `(${min}-${max})`;
           return min.toString()
+        }
+
+        function getMinMaxPoisonDamage(min, max, duration) {
+          if (min !== max) return `+(${min}-${max}) Poison Damage over ${duration} seconds`;
+          return `+${min.toString()} Poison Damage over ${duration} seconds`
         }
 
         function getPosNegMinMax(min, max) {
@@ -40,140 +45,210 @@ function UniqueItems() {
             return `${min}`;
           }
           else {
-            alert('Error: Impossible affix configuration; verify database values.');
+            console.log('Error (Affix Configuration)');
             return NaN;
+          }
+        }
+
+        // Display affix granting charged-skill
+        function getChargedSkill(charges, lvl, skill) {
+          if (charges && charges > 0 && lvl && lvl > 0 && skill) {
+            return `Level ${lvl} ${skill.toString()} (${charges} Charges)`;
+          }
+          else {
+            console.log('Error (Affix Configuration)');
+            return `Error (Affix Configuration)`;
+          }
+        }
+
+        // Display affix granting gethit-skill or hit-skill
+        function getHitSkill(chance, lvl, skill) {
+          if (chance && lvl && skill) {
+            if (Array.isArray(chance) && Array.isArray(lvl)) {
+              // Chance and Level are arrays
+              if (chance[0] && chance[1] && chance[0] < chance[1] && lvl[0] && lvl[1] && lvl[0] < lvl[1]) {
+                return `(${chance[0]}-${chance[1]})% Chance To Cast Level (${lvl[0]}-${lvl[1]}) ${skill.toString()}`;
+              }
+              else {
+                console.log('Error (Affix Configuration)');
+                return `Error (Affix Configuration)`;
+              }
+            }
+            else if (Array.isArray(chance) && !Array.isArray(lvl)) {
+              // Chance is an array
+              if (chance[0] && chance[1] && chance[0] < chance[1]) {
+                return `(${chance[0]}-${chance[1]})% Chance To Cast Level ${lvl} ${skill.toString()}`;
+              }
+              else {
+                console.log('Error (Affix Configuration)');
+                return `Error (Affix Configuration)`;
+              }
+            }
+            else if (!Array.isArray(chance) && Array.isArray(lvl)) {
+              // Level is an array
+              if (lvl[0] && lvl[1] && lvl[0] < lvl[1]) {
+                return `${chance}% Chance To Cast Level (${lvl[0]}-${lvl[1]}) ${skill.toString()}`;
+              }
+              else {
+                console.log('Error (Affix Configuration)');
+                return `Error (Affix Configuration)`;
+              }
+            }
+            else if (!Array.isArray(chance) && !Array.isArray(lvl)) {
+              // Chance and Level are not arrays
+              return `${chance}% Chance To Cast Level ${lvl} ${skill.toString()}`;
+            }
+          }
+          else {
+            console.log('Error (Affix Configuration)');
+            return `Error (Affix Configuration)`;
           }
         }
 
         switch (key) {
           case 'abs-cold%':
-            result = `Cold Absorb ${getMinMax(value.min, value.max)}%`;
+            affix = `Cold Absorb ${getMinMax(value.min, value.max)}%`;
             break;
           case 'abs-fire%':
-            result = `Fire Absorb ${getMinMax(value.min, value.max)}%`;
+            affix = `Fire Absorb ${getMinMax(value.min, value.max)}%`;
             break;
           case 'abs-ltng%':
-            result = `Lightning Absorb ${getMinMax(value.min, value.max)}%`;
+            affix = `Lightning Absorb ${getMinMax(value.min, value.max)}%`;
             break;
           case 'ac':
-            result = `${getPosNegMinMax(value.min, value.max)} Defense`;
+            affix = `${getPosNegMinMax(value.min, value.max)} Defense`;
+            break;
+          case 'ac%':
+            affix = `${getPosNegMinMax(value.min, value.max)}% Enhanced Defense`;
             break;
           case 'ac-miss':
-            result = `${getPosNegMinMax(value.min, value.max)} Defense vs. Missile`;
+            affix = `${getPosNegMinMax(value.min, value.max)} Defense vs. Missile`;
             break;
           case 'all-stats':
-            result = `${getPosNegMinMax(value.min, value.max)} To All Attributes`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To All Attributes`;
             break;
           case 'allskills':
-            result = `${getPosNegMinMax(value.min, value.max)} To All Skills`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To All Skills`;
             break;
           case 'att':
-            result = `${getPosNegMinMax(value.min, value.max)} To Attack Rating`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To Attack Rating`;
             break;
           case 'att%':
-            result = `${getPosNegMinMax(value.min, value.max)}% Bonus To Attack Rating`;
+            affix = `${getPosNegMinMax(value.min, value.max)}% Bonus To Attack Rating`;
             break;
           case 'att-demon':
-            result = `${getPosNegMinMax(value.min, value.max)} To Attack Rating Against Demons`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To Attack Rating Against Demons`;
             break;
           case 'att-undead':
-            result = `${getPosNegMinMax(value.min, value.max)} To Attack Rating Against Undead`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To Attack Rating Against Undead`;
             break;
           case 'balance2':
-            result = `${getPosNegMinMax(value.min, value.max)}% Faster Hit Recovery`;
+            affix = `${getPosNegMinMax(value.min, value.max)}% Faster Hit Recovery`;
+            break;
+          case 'charged-skill':
+            affix = `${getChargedSkill(value.charges, value.lvl, value.skill)}`;
             break;
           case 'dex':
-            result = `${getPosNegMinMax(value.min, value.max)} To Dexterity`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To Dexterity`;
             break;
           case 'dmg-demon':
-            result = `${getPosNegMinMax(value.min, value.max)}% Damage To Demons`;
+            affix = `${getPosNegMinMax(value.min, value.max)}% Damage To Demons`;
             break;
           case 'dmg-undead':
-            result = `${getPosNegMinMax(value.min, value.max)}% Damage To Undead`;
+            affix = `${getPosNegMinMax(value.min, value.max)}% Damage To Undead`;
             break;
           case 'dmg-fire':
-            result = `Adds ${getRange(value.min, value.max)} Fire Damage`;
+            affix = `Adds ${getRange(value.min, value.max)} Fire Damage`;
             break;
           case 'dmg-ltng':
-            result = `Adds ${getRange(value.min, value.max)} Lightning Damage`;
+            affix = `Adds ${getRange(value.min, value.max)} Lightning Damage`;
+            break;
+          case 'dmg-pois':
+            affix = `${getMinMaxPoisonDamage(value.min, value.max, value.duration)}`;
             break;
           case 'dmg-to-mana':
-            result = `${getMinMax(value.min, value.max)}% Damage Taken Goes To Mana`;
+            affix = `${getMinMax(value.min, value.max)}% Damage Taken Goes To Mana`;
             break;
           case 'fireskill':
-            result = `${getPosNegMinMax(value.min, value.max)} To Fire Skills`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To Fire Skills`;
+            break;
+          case 'gethit-skill':
+            affix = `${getHitSkill(value['chance%'], value.lvl, value.skill)} When Struck`;
             break;
           case 'gold%':
-            result = `${getMinMax(value.min, value.max)}% Extra Gold From Monsters`;
+            affix = `${getMinMax(value.min, value.max)}% Extra Gold From Monsters`;
+            break;
+          case 'hit-skill':
+            affix = `${getHitSkill(value['chance%'], value.lvl, value.skill)} On Striking`;
             break;
           case 'hp':
-            result = `${getPosNegMinMax(value.min, value.max)} To Life`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To Life`;
             break;
           case 'lifesteal':
-            result = `${getMinMax(value.min, value.max)}% Life Stolen Per Hit`;
+            affix = `${getMinMax(value.min, value.max)}% Life Stolen Per Hit`;
             break;
           case 'light':
-            result = `${getPosNegMinMax(value.min, value.max)} To Light Radius`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To Light Radius`;
             break;
           case 'light-thorns':
-            result = `Attacker Takes Lightning Damage of ${getMinMax(value.min, value.max)}`;
+            affix = `Attacker Takes Lightning Damage of ${getMinMax(value.min, value.max)}`;
             break;
           case 'mag%':
-            result = `${getMinMax(value.min, value.max)}% Better Chance of Getting Magic Items`;
+            affix = `${getMinMax(value.min, value.max)}% Better Chance of Getting Magic Items`;
             break;
           case 'mana':
-            result = `${getPosNegMinMax(value.min, value.max)} To Mana`;
+            affix = `${getPosNegMinMax(value.min, value.max)} To Mana`;
             break;
           case 'mana%':
-            result = `Increase Maximum Mana ${getMinMax(value.min, value.max)}%`;
+            affix = `Increase Maximum Mana ${getMinMax(value.min, value.max)}%`;
             break;
           case 'manasteal':
-            result = `${getMinMax(value.min, value.max)}% Mana Stolen Per Hit`;
+            affix = `${getMinMax(value.min, value.max)}% Mana Stolen Per Hit`;
             break;
           case 'move2':
-            result = `${getPosNegMinMax(value.min, value.max)}% Faster Run/Walk`;
+            affix = `${getPosNegMinMax(value.min, value.max)}% Faster Run/Walk`;
             break;
           case 'red-mag':
-            result = `Magic Damage Reduced By ${getMinMax(value.min, value.max)}`;
+            affix = `Magic Damage Reduced By ${getMinMax(value.min, value.max)}`;
             break;
           case 'regen':
-            result = `Replenish Life ${getPosNegMinMax(value.min, value.max)}`;
+            affix = `Replenish Life ${getPosNegMinMax(value.min, value.max)}`;
             break;
           case 'regen-mana':
-            result = `Regenerate Mana ${getMinMax(value.min, value.max)}%`;
+            affix = `Regenerate Mana ${getMinMax(value.min, value.max)}%`;
             break;
           case 'regen-stam':
-            result = `Heal Stamina Plus ${getMinMax(value.min, value.max)}%`;
+            affix = `Heal Stamina Plus ${getMinMax(value.min, value.max)}%`;
             break;
           case 'res-all':
-            result = `All Resistances ${getPosNegMinMax(value.min, value.max)}%`;
+            affix = `All Resistances ${getPosNegMinMax(value.min, value.max)}%`;
             break;
           case 'res-fire':
-            result = `Fire Resist ${getPosNegMinMax(value.min, value.max)}%`;
+            affix = `Fire Resist ${getPosNegMinMax(value.min, value.max)}%`;
             break;
           case 'res-fire-max':
-            result = `${getPosNegMinMax(value.min, value.max)}% To Maximum Fire Resist`;
+            affix = `${getPosNegMinMax(value.min, value.max)}% To Maximum Fire Resist`;
             break;
           case 'res-ltng':
-            result = `Lightning Resist ${getPosNegMinMax(value.min, value.max)}%`;
+            affix = `Lightning Resist ${getPosNegMinMax(value.min, value.max)}%`;
             break;
           case 'res-pois':
-            result = `Poison Resist ${getPosNegMinMax(value.min, value.max)}%`;
+            affix = `Poison Resist ${getPosNegMinMax(value.min, value.max)}%`;
             break;
           case 'stam':
-            result = `${getPosNegMinMax(value.min, value.max)} Maximum Stamina`;
+            affix = `${getPosNegMinMax(value.min, value.max)} Maximum Stamina`;
             break;
           case 'swing2':
-            result = `${getPosNegMinMax(value.min, value.max)}% Increased Attack Speed`;
+            affix = `${getPosNegMinMax(value.min, value.max)}% Increased Attack Speed`;
             break;
           case 'thorns':
-            result = `Attacker Takes Damage of ${getMinMax(value.min, value.max)}`;
+            affix = `Attacker Takes Damage of ${getMinMax(value.min, value.max)}`;
             break;
           default:
-            result = `Unknown Affix`
+            affix = `Unknown Affix`
         }
       }
-      return <li>{result}</li>
+      return <li>{affix}</li>
     });
 
     return (
@@ -188,7 +263,7 @@ function UniqueItems() {
         <div>costmulti: {costmulti}</div>
         <div>
           <div>affixes:</div>
-          <ul>{affix}</ul>
+          <ul>{affixes}</ul>
         </div>
       </li>
     );
