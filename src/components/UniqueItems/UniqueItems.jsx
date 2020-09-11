@@ -50,6 +50,59 @@ function UniqueItems() {
           }
         }
 
+        // Display affix with skillcategory bonus
+        function getSkillTabBonus(min, max, skillcategory) {
+          if (min !== max) {
+            return `+(${min}-${max}) To ${skillcategory}`;
+          }
+          else {
+            return `+${min} To ${skillcategory}`;
+          }
+        }
+
+        // Display affix with variable min, max, duration
+        function getVariableRangeColdDamage(min, max, duration) {
+          if (min && max && duration) {
+            let CalculatedDuration, CalculatedDurationMin, CalculatedDurationMax;
+            if (Array.isArray(min) && Array.isArray(max) && Array.isArray(duration)) {
+              if (min[0] && min[1] && min[0] < min[1] && max[0] && max[1] && max[0] < max[1] && duration[0] && duration[1] && duration[0] < duration[1]) {
+                // Execute if min/max/duration ranges are valid
+                CalculatedDurationMin = duration[0] / 25;
+                CalculatedDurationMin = Math.floor(CalculatedDurationMin);
+                CalculatedDurationMax = duration[1] / 25;
+                CalculatedDurationMax = Math.floor(CalculatedDurationMax);
+                return `((${min[0]}-${min[1]})-(${max[0]}-${max[1]})) Cold Damage [Chill Duration: (${CalculatedDurationMin}-${CalculatedDurationMax}) Seconds]`;
+              }
+            }
+            else if (Array.isArray(min) && Array.isArray(max) && !Array.isArray(duration)) {
+              // Execute if min/max ranges are valid with integer duration
+              CalculatedDuration = duration / 25;
+              CalculatedDuration = Math.floor(CalculatedDuration);
+              return `((${min[0]}-${min[1]})-(${max[0]}-${max[1]})) Cold Damage [Chill Duration: ${CalculatedDuration} Seconds]`;
+            }
+            else if (!Array.isArray(min) && !Array.isArray(max) && !Array.isArray(duration)) {
+              // Execute if min/max/duration are integers
+              CalculatedDuration = duration / 25;
+              CalculatedDuration = Math.floor(CalculatedDuration);
+              return `${min}-${max} Cold Damage [Chill Duration: ${CalculatedDuration} Seconds]`;
+            }
+          }
+          else {
+            console.log('Error (Affix Configuration)');
+            return `Error (Affix Configuration)`;
+          }
+        }
+
+        // Display affix granting per-level bonuses
+        function getPerLevelIncrease(val) {
+          val = val / 8;
+          let minVal = rlvl * val;
+          minVal = Math.floor(minVal);
+          let maxVal = 99 * val;
+          maxVal = Math.floor(maxVal);
+          return `+(${val} Per Character Level) ${minVal}-${maxVal}`
+        }
+
         // Display affix granting charged-skill
         function getChargedSkill(charges, lvl, skill) {
           if (charges && charges > 0 && lvl && lvl > 0 && skill) {
@@ -112,6 +165,9 @@ function UniqueItems() {
           case 'abs-fire%':
             affix = `Fire Absorb ${getMinMax(value.min, value.max)}%`;
             break;
+          case 'abs-fire/lvl':
+            affix = `${getPerLevelIncrease(value)} Fire Absorb (Based On Character Level)`;
+            break;
           case 'abs-ltng%':
             affix = `Lightning Absorb ${getMinMax(value.min, value.max)}%`;
             break;
@@ -148,14 +204,17 @@ function UniqueItems() {
           case 'charged-skill':
             affix = `${getChargedSkill(value.charges, value.lvl, value.skill)}`;
             break;
+          case 'deadly/lvl':
+            affix = `${getPerLevelIncrease(value)}% Deadly Strike (Based On Character Level)`;
+            break;
           case 'dex':
             affix = `${getPosNegMinMax(value.min, value.max)} To Dexterity`;
             break;
-          case 'dmg-demon':
-            affix = `${getPosNegMinMax(value.min, value.max)}% Damage To Demons`;
+          case 'dmg-cold':
+            affix = `Adds ${getVariableRangeColdDamage(value.min, value.max, value.duration)}`;
             break;
-          case 'dmg-undead':
-            affix = `${getPosNegMinMax(value.min, value.max)}% Damage To Undead`;
+            case 'dmg-demon':
+            affix = `${getPosNegMinMax(value.min, value.max)}% Damage To Demons`;
             break;
           case 'dmg-fire':
             affix = `Adds ${getRange(value.min, value.max)} Fire Damage`;
@@ -168,6 +227,9 @@ function UniqueItems() {
             break;
           case 'dmg-to-mana':
             affix = `${getMinMax(value.min, value.max)}% Damage Taken Goes To Mana`;
+            break;
+          case 'dmg-undead':
+            affix = `${getPosNegMinMax(value.min, value.max)}% Damage To Undead`;
             break;
           case 'fireskill':
             affix = `${getPosNegMinMax(value.min, value.max)} To Fire Skills`;
@@ -183,6 +245,9 @@ function UniqueItems() {
             break;
           case 'hp':
             affix = `${getPosNegMinMax(value.min, value.max)} To Life`;
+            break;
+          case 'hp/lvl':
+            affix = `${getPerLevelIncrease(value)} To Life (Based On Character Level)`;
             break;
           case 'lifesteal':
             affix = `${getMinMax(value.min, value.max)}% Life Stolen Per Hit`;
@@ -208,8 +273,17 @@ function UniqueItems() {
           case 'move2':
             affix = `${getPosNegMinMax(value.min, value.max)}% Faster Run/Walk`;
             break;
+          case 'nofreeze':
+            affix = `Cannot Be Frozen`;
+            break;
+          case 'noheal':
+            affix = `Prevent Monster Heal`;
+            break;
+          case 'red-dmg':
+            affix = `Damage Taken Reduced By ${getMinMax(value.min, value.max)}`;
+            break;
           case 'red-mag':
-            affix = `Magic Damage Reduced By ${getMinMax(value.min, value.max)}`;
+            affix = `Magic Damage Taken Reduced By ${getMinMax(value.min, value.max)}`;
             break;
           case 'regen':
             affix = `Replenish Life ${getPosNegMinMax(value.min, value.max)}`;
@@ -234,6 +308,12 @@ function UniqueItems() {
             break;
           case 'res-pois':
             affix = `Poison Resist ${getPosNegMinMax(value.min, value.max)}%`;
+            break;
+          case 'rip':
+            affix = `Slain Monsters Rest In Peace`;
+            break;
+          case 'skilltab':
+            affix = `${getSkillTabBonus(value.min, value.max, value.skillcategory)}`;
             break;
           case 'stam':
             affix = `${getPosNegMinMax(value.min, value.max)} Maximum Stamina`;
