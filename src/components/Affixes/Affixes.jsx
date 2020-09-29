@@ -3,6 +3,8 @@ import React from 'react';
 function Affixes({itemAffixes, rlvl}) {
 
   const affixes = itemAffixes.map((affixObject) => {
+    console.log(affixObject);
+
     let affix;
     for (const [key, value] of Object.entries(affixObject)) {
       console.log(key);
