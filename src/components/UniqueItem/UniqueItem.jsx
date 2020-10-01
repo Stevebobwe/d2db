@@ -2,7 +2,12 @@ import React from 'react';
 import Affixes from '../Affixes/Affixes';
 
 function UniqueItem(props) {
-  const { name, enabled, ladder, code, rarity, ilvl, rlvl, costmulti, affixes } = props;
+  const { name, enabled, ladder, code, rarity, ilvl, qlvl, rlvl, costmulti, affixes } = props;
+
+  let qlvlIfDefined;
+  if (qlvl) {
+    qlvlIfDefined = <div>qlvl: {qlvl}</div>;
+  }
 
   return (
     <li className='uniqueItem'>
@@ -12,6 +17,7 @@ function UniqueItem(props) {
       <div>Code: {code}</div>
       <div>Rarity: {rarity}</div>
       <div>ilvl: {ilvl}</div>
+      {qlvlIfDefined}
       <div>rlvl: {rlvl}</div>
       <div>costmulti: {costmulti}</div>
       <div>

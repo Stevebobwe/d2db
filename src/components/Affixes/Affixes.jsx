@@ -2,6 +2,147 @@ import React from 'react';
 
 function Affixes({itemAffixes, rlvl}) {
 
+  function getRange(min, max) {
+    if (min !== max) return `${min}-${max}`;
+    return min.toString()
+  }
+
+  function getMinMax(min, max) {
+    if (min !== max) return `(${min}-${max})`;
+    return min.toString()
+  }
+
+  function getMinMaxPoisonDamage(min, max, duration) {
+    if (min !== max) return `+(${min}-${max}) Poison Damage over ${duration} seconds`;
+    return `+${min.toString()} Poison Damage over ${duration} seconds`
+  }
+
+  function getPosNegMinMax(min, max) {
+    if (min >= 0 && max >= 0) {
+      if (min !== max) return `+(${min}-${max})`;
+      return `+${min}`;
+    }
+    else if (min <= 0 && max > 0) {
+      return `+(${min}-${max})`;
+    }
+    else if (min < 0 && max < 0) {
+      if (min !== max) return `-(${min*(-1)}-${max*(-1)})`;
+      return `${min}`;
+    }
+    else {
+      console.log('Error (Affix Configuration)');
+      return NaN;
+    }
+  }
+
+  // Display affix with skillcategory bonus
+  function getSkillTabBonus(min, max, skillcategory) {
+    if (min !== max) {
+      return `+(${min}-${max}) To ${skillcategory}`;
+    }
+    else {
+      return `+${min} To ${skillcategory}`;
+    }
+  }
+
+  // Display affix with variable min, max, duration
+  function getVariableRangeColdDamage(min, max, duration) {
+    if (min && max && duration) {
+      let CalculatedDuration, CalculatedDurationMin, CalculatedDurationMax;
+      if (Array.isArray(min) && Array.isArray(max) && Array.isArray(duration)) {
+        if (min[0] && min[1] && min[0] < min[1] && max[0] && max[1] && max[0] < max[1] && duration[0] && duration[1] && duration[0] < duration[1]) {
+          // Execute if min/max/duration ranges are valid
+          CalculatedDurationMin = duration[0] / 25;
+          CalculatedDurationMin = Math.floor(CalculatedDurationMin);
+          CalculatedDurationMax = duration[1] / 25;
+          CalculatedDurationMax = Math.floor(CalculatedDurationMax);
+          return `((${min[0]}-${min[1]})-(${max[0]}-${max[1]})) Cold Damage [Chill Duration: (${CalculatedDurationMin}-${CalculatedDurationMax}) Seconds]`;
+        }
+      }
+      else if (Array.isArray(min) && Array.isArray(max) && !Array.isArray(duration)) {
+        // Execute if min/max ranges are valid with integer duration
+        CalculatedDuration = duration / 25;
+        CalculatedDuration = Math.floor(CalculatedDuration);
+        return `((${min[0]}-${min[1]})-(${max[0]}-${max[1]})) Cold Damage [Chill Duration: ${CalculatedDuration} Seconds]`;
+      }
+      else if (!Array.isArray(min) && !Array.isArray(max) && !Array.isArray(duration)) {
+        // Execute if min/max/duration are integers
+        CalculatedDuration = duration / 25;
+        CalculatedDuration = Math.floor(CalculatedDuration);
+        return `${min}-${max} Cold Damage [Chill Duration: ${CalculatedDuration} Seconds]`;
+      }
+    }
+    else {
+      console.log('Error (Affix Configuration)');
+      return `Error (Affix Configuration)`;
+    }
+  }
+
+  // Display affix granting per-level bonuses
+  function getPerLevelIncrease(val) {
+    val = val / 8;
+    let minVal = rlvl * val;
+    minVal = Math.floor(minVal);
+    let maxVal = 99 * val;
+    maxVal = Math.floor(maxVal);
+    return `+(${val} Per Character Level) ${minVal}-${maxVal}`
+  }
+
+  // Display affix granting charged-skill
+  function getChargedSkill(charges, lvl, skill) {
+    if (charges && charges > 0 && lvl && lvl > 0 && skill) {
+      return `Level ${lvl} ${skill.toString()} (${charges} Charges)`;
+    }
+    else {
+      console.log('Error (Affix Configuration)');
+      return `Error (Affix Configuration)`;
+    }
+  }
+
+  // Display affix granting gethit-skill or hit-skill
+  function getHitSkill(chance, lvl, skill) {
+    if (chance && lvl && skill) {
+      if (Array.isArray(chance) && Array.isArray(lvl)) {
+        // Chance and Level are arrays
+        if (chance[0] && chance[1] && chance[0] < chance[1] && lvl[0] && lvl[1] && lvl[0] < lvl[1]) {
+          return `(${chance[0]}-${chance[1]})% Chance To Cast Level (${lvl[0]}-${lvl[1]}) ${skill.toString()}`;
+        }
+        else {
+          console.log('Error (Affix Configuration)');
+          return `Error (Affix Configuration)`;
+        }
+      }
+      else if (Array.isArray(chance) && !Array.isArray(lvl)) {
+        // Chance is an array
+        if (chance[0] && chance[1] && chance[0] < chance[1]) {
+          return `(${chance[0]}-${chance[1]})% Chance To Cast Level ${lvl} ${skill.toString()}`;
+        }
+        else {
+          console.log('Error (Affix Configuration)');
+          return `Error (Affix Configuration)`;
+        }
+      }
+      else if (!Array.isArray(chance) && Array.isArray(lvl)) {
+        // Level is an array
+        if (lvl[0] && lvl[1] && lvl[0] < lvl[1]) {
+          return `${chance}% Chance To Cast Level (${lvl[0]}-${lvl[1]}) ${skill.toString()}`;
+        }
+        else {
+          console.log('Error (Affix Configuration)');
+          return `Error (Affix Configuration)`;
+        }
+      }
+      else if (!Array.isArray(chance) && !Array.isArray(lvl)) {
+        // Chance and Level are not arrays
+        return `${chance}% Chance To Cast Level ${lvl} ${skill.toString()}`;
+      }
+    }
+    else {
+      console.log('Error (Affix Configuration)');
+      return `Error (Affix Configuration)`;
+    }
+  }
+
   const affixes = itemAffixes.map((affixObject) => {
     console.log(affixObject);
 
@@ -9,147 +150,6 @@ function Affixes({itemAffixes, rlvl}) {
     for (const [key, value] of Object.entries(affixObject)) {
       console.log(key);
       console.log(value);
-
-      function getRange(min, max) {
-        if (min !== max) return `${min}-${max}`;
-        return min.toString()
-      }
-
-      function getMinMax(min, max) {
-        if (min !== max) return `(${min}-${max})`;
-        return min.toString()
-      }
-
-      function getMinMaxPoisonDamage(min, max, duration) {
-        if (min !== max) return `+(${min}-${max}) Poison Damage over ${duration} seconds`;
-        return `+${min.toString()} Poison Damage over ${duration} seconds`
-      }
-
-      function getPosNegMinMax(min, max) {
-        if (min >= 0 && max >= 0) {
-          if (min !== max) return `+(${min}-${max})`;
-          return `+${min}`;
-        }
-        else if (min <= 0 && max > 0) {
-          return `+(${min}-${max})`;
-        }
-        else if (min < 0 && max < 0) {
-          if (min !== max) return `-(${min*(-1)}-${max*(-1)})`;
-          return `${min}`;
-        }
-        else {
-          console.log('Error (Affix Configuration)');
-          return NaN;
-        }
-      }
-
-      // Display affix with skillcategory bonus
-      function getSkillTabBonus(min, max, skillcategory) {
-        if (min !== max) {
-          return `+(${min}-${max}) To ${skillcategory}`;
-        }
-        else {
-          return `+${min} To ${skillcategory}`;
-        }
-      }
-
-      // Display affix with variable min, max, duration
-      function getVariableRangeColdDamage(min, max, duration) {
-        if (min && max && duration) {
-          let CalculatedDuration, CalculatedDurationMin, CalculatedDurationMax;
-          if (Array.isArray(min) && Array.isArray(max) && Array.isArray(duration)) {
-            if (min[0] && min[1] && min[0] < min[1] && max[0] && max[1] && max[0] < max[1] && duration[0] && duration[1] && duration[0] < duration[1]) {
-              // Execute if min/max/duration ranges are valid
-              CalculatedDurationMin = duration[0] / 25;
-              CalculatedDurationMin = Math.floor(CalculatedDurationMin);
-              CalculatedDurationMax = duration[1] / 25;
-              CalculatedDurationMax = Math.floor(CalculatedDurationMax);
-              return `((${min[0]}-${min[1]})-(${max[0]}-${max[1]})) Cold Damage [Chill Duration: (${CalculatedDurationMin}-${CalculatedDurationMax}) Seconds]`;
-            }
-          }
-          else if (Array.isArray(min) && Array.isArray(max) && !Array.isArray(duration)) {
-            // Execute if min/max ranges are valid with integer duration
-            CalculatedDuration = duration / 25;
-            CalculatedDuration = Math.floor(CalculatedDuration);
-            return `((${min[0]}-${min[1]})-(${max[0]}-${max[1]})) Cold Damage [Chill Duration: ${CalculatedDuration} Seconds]`;
-          }
-          else if (!Array.isArray(min) && !Array.isArray(max) && !Array.isArray(duration)) {
-            // Execute if min/max/duration are integers
-            CalculatedDuration = duration / 25;
-            CalculatedDuration = Math.floor(CalculatedDuration);
-            return `${min}-${max} Cold Damage [Chill Duration: ${CalculatedDuration} Seconds]`;
-          }
-        }
-        else {
-          console.log('Error (Affix Configuration)');
-          return `Error (Affix Configuration)`;
-        }
-      }
-
-      // Display affix granting per-level bonuses
-      function getPerLevelIncrease(val) {
-        val = val / 8;
-        let minVal = rlvl * val;
-        minVal = Math.floor(minVal);
-        let maxVal = 99 * val;
-        maxVal = Math.floor(maxVal);
-        return `+(${val} Per Character Level) ${minVal}-${maxVal}`
-      }
-
-      // Display affix granting charged-skill
-      function getChargedSkill(charges, lvl, skill) {
-        if (charges && charges > 0 && lvl && lvl > 0 && skill) {
-          return `Level ${lvl} ${skill.toString()} (${charges} Charges)`;
-        }
-        else {
-          console.log('Error (Affix Configuration)');
-          return `Error (Affix Configuration)`;
-        }
-      }
-
-      // Display affix granting gethit-skill or hit-skill
-      function getHitSkill(chance, lvl, skill) {
-        if (chance && lvl && skill) {
-          if (Array.isArray(chance) && Array.isArray(lvl)) {
-            // Chance and Level are arrays
-            if (chance[0] && chance[1] && chance[0] < chance[1] && lvl[0] && lvl[1] && lvl[0] < lvl[1]) {
-              return `(${chance[0]}-${chance[1]})% Chance To Cast Level (${lvl[0]}-${lvl[1]}) ${skill.toString()}`;
-            }
-            else {
-              console.log('Error (Affix Configuration)');
-              return `Error (Affix Configuration)`;
-            }
-          }
-          else if (Array.isArray(chance) && !Array.isArray(lvl)) {
-            // Chance is an array
-            if (chance[0] && chance[1] && chance[0] < chance[1]) {
-              return `(${chance[0]}-${chance[1]})% Chance To Cast Level ${lvl} ${skill.toString()}`;
-            }
-            else {
-              console.log('Error (Affix Configuration)');
-              return `Error (Affix Configuration)`;
-            }
-          }
-          else if (!Array.isArray(chance) && Array.isArray(lvl)) {
-            // Level is an array
-            if (lvl[0] && lvl[1] && lvl[0] < lvl[1]) {
-              return `${chance}% Chance To Cast Level (${lvl[0]}-${lvl[1]}) ${skill.toString()}`;
-            }
-            else {
-              console.log('Error (Affix Configuration)');
-              return `Error (Affix Configuration)`;
-            }
-          }
-          else if (!Array.isArray(chance) && !Array.isArray(lvl)) {
-            // Chance and Level are not arrays
-            return `${chance}% Chance To Cast Level ${lvl} ${skill.toString()}`;
-          }
-        }
-        else {
-          console.log('Error (Affix Configuration)');
-          return `Error (Affix Configuration)`;
-        }
-      }
 
       switch (key) {
         case 'abs-cold%':
