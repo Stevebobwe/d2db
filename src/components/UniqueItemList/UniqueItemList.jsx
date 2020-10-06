@@ -8,18 +8,6 @@ function UniqueItemList() {
     return <UniqueItem {...item} />;
   });
 
-
-  // WIP BELOW
-  // const filteredUniqueItemList = UniqueItemsData
-  //   .filter(name => {
-  //     // remove items whose names do not contain filter text
-  //   })
-  //   .map(item => {
-  //     return <UniqueItem {...item} />;
-  //   });
-  
-  // WIP ABOVE
-
   return (
     <ul className='uniqueItemList'>
       {uniqueItemList}

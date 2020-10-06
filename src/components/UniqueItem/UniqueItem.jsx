@@ -2,12 +2,29 @@ import React from 'react';
 import Affixes from '../Affixes/Affixes';
 
 function UniqueItem(props) {
-  const { name, enabled, ladder, code, rarity, ilvl, qlvl, rlvl, costmulti, affixes } = props;
+  const { name, enabled, ladder, code, rarity, ilvl, rlvl, costmulti, affixes, baseItemsData } = props;
+
+  // let qlvlIfDefined;
+  // if (qlvl) {
+  //   qlvlIfDefined = <div>qlvl: {qlvl}</div>;
+  // }
 
   let qlvlIfDefined;
-  if (qlvl) {
-    qlvlIfDefined = <div>qlvl: {qlvl}</div>;
+  if (baseItemsData[code].qlvl) {
+    qlvlIfDefined = <div>qlvl: {baseItemsData[code].qlvl}</div>;
   }
+  else {
+    qlvlIfDefined = <div>qlvl: 1</div>;
+  }
+
+
+  console.log('testingnow');
+  console.log(code);
+  console.log(baseItemsData);
+  console.log(baseItemsData[code]);
+  console.log(baseItemsData[code].name);
+
+
 
   return (
     <li className='uniqueItem'>

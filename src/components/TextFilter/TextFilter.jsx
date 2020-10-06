@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import UniqueItemsData from '../../data/uniqueItems.json';
+import BaseItemsData from '../../data/baseItems.json';
 import UniqueItem from '../UniqueItem/UniqueItem';
 
 function TextFilter() {
@@ -8,8 +9,6 @@ function TextFilter() {
   // Required level
   const [byMinrlvlFilter, setByMinrlvlFilter] = useState(1);
   const [byMaxrlvlFilter, setByMaxrlvlFilter] = useState(99);
-
-
 
   // Required Strength
   const [byMinstr, setByMinstrFilter] = useState(0);
@@ -22,12 +21,8 @@ function TextFilter() {
   // Class-Specific
   const [byReqClass, setByReqClassFilter] = useState('');
 
-  //const [filteredUniqueItemsData, setFilteredUniqueItemsData] = useState(UniqueItemsData);
+
   let filteredUniqueItemsData = UniqueItemsData;
-
-
-  //wipbelow
-
 
   // array of filter functions
   const filterFnsToApply = [];
@@ -61,9 +56,13 @@ function TextFilter() {
     filteredUniqueItemsData = filteredUniqueItemsData.filter(filterFn);
   });
 
+  console.log('TEST');
+  console.log(BaseItemsData['amu']);
+  //console.log(BaseItemsData.amu.name);
+
   const itemList = filteredUniqueItemsData
     .map(item => {
-      return <UniqueItem {...item} />;
+      return <UniqueItem {...item} baseItemsData={BaseItemsData}/>;
   });
 
   return (

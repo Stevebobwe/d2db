@@ -1,0 +1,78 @@
+{
+  "amu": {
+    "name": "Amulet",
+    "type": ["misc", "jewelry", "amu"],
+    "code": "amu",
+    "invfile": ["invamu1", "invamu2", "invamu3"],
+    "qlvl": 1
+  },
+  "rin": {
+    "name": "Ring",
+    "type": ["misc", "jewelry", "rin"],
+    "code": "rin",
+    "invfile": ["invrin1", "invrin2", "invrin3", "invrin4", "invrin5"]
+  },
+
+
+
+  "ci0": {
+    "name": "Circlet",
+    "type": ["armour", "helm", "circ"],
+    "code": "ci0",
+    "normcode": "ci0",
+    "ubercode": "ci2",
+    "ultracode": "ci3",
+    "invfile": "invci0",
+    "mlvl": 3,
+    "qlvl": 24,
+    "rlvl": 16,
+    "ac": { "min": 20, "max": 30 },
+    "dur": 35,
+    "socketmax": 2
+  },
+  "ci1": {
+    "name": "Coronet",
+    "type": ["armour", "helm", "circ"],
+    "code": "ci1",
+    "normcode": "ci1",
+    "ubercode": "ci2",
+    "ultracode": "ci3",
+    "invfile": "invci1",
+    "mlvl": 8,
+    "qlvl": 52,
+    "rlvl": 39,
+    "ac": { "min": 30, "max": 40 },
+    "dur": 30,
+    "socketmax": 2
+  },
+  "ci2": {
+    "name": "Tiara",
+    "type": ["armour", "helm", "circ"],
+    "code": "ci2",
+    "normcode": "ci1",
+    "ubercode": "ci2",
+    "ultracode": "ci3",
+    "invfile": "invci2",
+    "mlvl": 13,
+    "qlvl": 70,
+    "rlvl": 52,
+    "ac": { "min": 40, "max": 50 },
+    "dur": 25,
+    "socketmax": 3
+  },
+  "ci3": {
+    "name": "Diadem",
+    "type": ["armour", "helm", "circ"],
+    "code": "ci3",
+    "normcode": "ci1",
+    "ubercode": "ci2",
+    "ultracode": "ci3",
+    "invfile": "invci3",
+    "mlvl": 18,
+    "qlvl": 85,
+    "rlvl": 64,
+    "ac": { "min": 50, "max": 60 },
+    "dur": 20,
+    "socketmax": 3
+  }
+}
