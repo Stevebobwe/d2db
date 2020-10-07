@@ -408,7 +408,8 @@
             {
                 "skilltab": { "min": 1, "max": 2, "skillcategory": "Defensive Auras (Paladin Only)" }
             }
-        ]
+        ],
+        "invfile": "invamu2"
     },
     {
         "name": "Stone of Jordan",
