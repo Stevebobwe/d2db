@@ -1,0 +1,14 @@
+.uniqueItem {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    padding: 15px 0;
+    .itemDisplay {
+        align-self: center;
+        justify-self: center;
+        text-align: center;
+    }
+    .itemName {
+        font-weight: bold;
+        color: hsla(51, 24, 45, 1);
+    }
+}

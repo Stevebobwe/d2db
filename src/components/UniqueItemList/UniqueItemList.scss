@@ -1,21 +1,14 @@
 .uniqueItemList {
   list-style: none;
   padding: 0;
+  background-color: hsla(0, 0, 10, 1);
   & > li {
-    background-color: #000;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    padding: 5px;
-    margin-bottom: 10px;
-  }
-  li {
     list-style: none;
     font-family: Arial, Helvetica, Sans-Serif;
-    font-size: 14px;    //10pt?
+    font-size: 14px;
     font-weight: normal;
-    color: hsla(0, 0, 69, 1);    // off-white    //color: hsla(51, 24, 45, 1);
-  }
-  .itemName {
-    font-weight: bold;
-    color: hsla(51, 24, 45, 1);
+    color: hsla(0, 0, 69, 1);
+    background-color: #000;
+    margin-bottom: 10px;
   }
 }

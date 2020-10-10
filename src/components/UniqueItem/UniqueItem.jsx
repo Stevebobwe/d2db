@@ -1,5 +1,7 @@
 import React from 'react';
+import { isCompositeComponent } from 'react-dom/test-utils';
 import Affixes from '../Affixes/Affixes';
+import './UniqueItem.scss';
 
 function UniqueItem(props) {
   const { name, enabled, ladder, code, rarity, ilvl, rlvl, costmulti, affixes, invfile, baseItemsData } = props;
@@ -40,38 +42,63 @@ function UniqueItem(props) {
   // display quality level of item from baseItems.json or default to 1
   let qlvlIfDefined;
   if (baseItemsData[code].qlvl) {
-    qlvlIfDefined = <div>qlvl: {baseItemsData[code].qlvl}</div>;
+    qlvlIfDefined = <div>Quality Level: {baseItemsData[code].qlvl}</div>;
   }
   else {
-    qlvlIfDefined = <div>qlvl: 1</div>;
+    qlvlIfDefined = <div>Quality Level: 1</div>;
+  }
+
+  // display magic level of item from baseItems.json or default to 1
+  let mlvlIfDefined;
+  if (baseItemsData[code].mlvl) {
+    mlvlIfDefined = <div>Magic Level: {baseItemsData[code].mlvl}</div>;
+  }
+
+  // display durability of item from baseItems.json or default to 1
+  let durIfDefined;
+  if (baseItemsData[code].dur) {
+    durIfDefined = <div>Durability: {baseItemsData[code].dur}</div>;
+  }
+
+  // display durability of item from baseItems.json or default to 1
+  let acIfDefined;
+  if (baseItemsData[code].ac) {
+    acIfDefined = <div>Base Defense: {baseItemsData[code].ac.min}-{baseItemsData[code].ac.max}</div>;
+  }
+
+
+
+
+
+  // display if item is ladder-only
+  let ladderOnly;
+  if (ladder === true) {
+    ladderOnly = <div>(Ladder Only)</div>;
   }
 
   console.log('testingnow');
-  console.log(code);
-  console.log(baseItemsData);
-  console.log(baseItemsData[code]);
-  console.log(baseItemsData[code].name);
+  console.log(affixes);
   // Start setting up actual layout and hook in images/base-item stats
 
   return (
     <li className='uniqueItem'>
-      {invfileDisplay}
-      <div className='itemName'>{name}</div>
-      <div>{baseItemsData[code].name}</div>
 
-      <br/><br/>
-
-      <div>Enabled: {enabled.toString()}</div>
-      <div>Ladder: {ladder.toString()}</div>
-      <div>Code: {code}</div>
-      <div>Rarity: {rarity}</div>
-      <div>ilvl: {ilvl}</div>
-      {qlvlIfDefined}
-      <div>rlvl: {rlvl}</div>
-      <div>costmulti: {costmulti}</div>
+      <div className='itemDisplay'>
+        {invfileDisplay}
+        <div className='itemName'>{name}</div>
+        <div>{baseItemsData[code].name}</div>
+      </div>
       <div>
-        <div>affixes:</div>
+        <div>Item Level: {ilvl}</div>
+        {/* {mlvlIfDefined} */}
+        {qlvlIfDefined}
+        <div>Required Level: {rlvl}</div>
+
+        {acIfDefined}
+
+        {durIfDefined}
         <Affixes itemAffixes={affixes} rlvl={rlvl} />
+        <div>{ladderOnly}</div>
       </div>
     </li>
   );

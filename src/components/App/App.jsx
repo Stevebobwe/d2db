@@ -10,18 +10,6 @@ function App() {
   return (
     <div className="App">
       <TextFilter/>
-
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-
-
-
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
       {/* <UniqueItemList/> */}
     </div>
   );

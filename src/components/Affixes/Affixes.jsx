@@ -1,4 +1,5 @@
 import React from 'react';
+import './Affixes.scss';
 
 function Affixes({itemAffixes, rlvl}) {
 
@@ -194,6 +195,9 @@ function Affixes({itemAffixes, rlvl}) {
         case 'balance2':
           affix = `${getPosNegMinMax(value.min, value.max)}% Faster Hit Recovery`;
           break;
+        case 'cast':
+          affix = `${getPosNegMinMax(value.min, value.max)}% Faster Cast Rate`;
+          break;
         case 'charged-skill':
           affix = `${getChargedSkill(value.charges, value.lvl, value.skill)}`;
           break;
@@ -223,6 +227,9 @@ function Affixes({itemAffixes, rlvl}) {
           break;
         case 'dmg-undead':
           affix = `${getPosNegMinMax(value.min, value.max)}% Damage To Undead`;
+          break;
+        case 'extra-ltng':
+          affix = `${getPosNegMinMax(value.min, value.max)}% To Lightning Skill Damage`;
           break;
         case 'fireskill':
           affix = `${getPosNegMinMax(value.min, value.max)} To Fire Skills`;
@@ -271,6 +278,9 @@ function Affixes({itemAffixes, rlvl}) {
           break;
         case 'noheal':
           affix = `Prevent Monster Heal`;
+          break;
+        case 'pierce-ltng':
+          affix = `${getPosNegMinMax(value.min, value.max)}% To Enemy Lightning Resistance`;
           break;
         case 'red-dmg':
           affix = `Damage Taken Reduced By ${getMinMax(value.min, value.max)}`;
@@ -325,7 +335,7 @@ function Affixes({itemAffixes, rlvl}) {
   });
 
   return (
-    <ul>{affixes}</ul>
+    <ul className='affixes'>{affixes}</ul>
   );
 }
 

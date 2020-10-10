@@ -575,5 +575,56 @@
                 "mag%": { "min": 10, "max": 20 }
             }
         ]
+    },
+    {
+        "name": "Kira's Guardian",
+        "enabled": true,
+        "ladder": true,
+        "code": "ci2",
+        "rarity": 1,
+        "ilvl": 85,
+        "rlvl": 77,
+        "costmulti": 3,
+        "affixes": [
+            {
+                "ac": { "min": 50, "max": 120 }
+            },
+            {
+                "balance2": { "min": 20, "max": 20 }
+            },
+            {
+                "nofreeze": true
+            },
+            {
+                "res-all": { "min": 50, "max": 75 }
+            }
+        ]
+    },
+    {
+        "name": "Griffon's Eye",
+        "enabled": true,
+        "ladder": true,
+        "code": "ci3",
+        "rarity": 1,
+        "ilvl": 84,
+        "rlvl": 76,
+        "costmulti": 5,
+        "affixes": [
+            {
+                "ac": { "min": 100, "max": 200 }
+            },
+            {
+                "allskills": { "min": 1, "max": 1 }
+            },
+            {
+                "cast": { "min": 25, "max": 25 }
+            },
+            {
+                "extra-ltng": { "min": 10, "max": 15 }
+            },
+            {
+                "pierce-ltng": { "min": -15, "max": -20 }
+            }
+        ]
     }
 ]
