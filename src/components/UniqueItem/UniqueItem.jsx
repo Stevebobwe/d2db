@@ -1,5 +1,4 @@
 import React from 'react';
-import { isCompositeComponent } from 'react-dom/test-utils';
 import Affixes from '../Affixes/Affixes';
 import './UniqueItem.scss';
 
