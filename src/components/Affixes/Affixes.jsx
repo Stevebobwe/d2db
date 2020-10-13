@@ -1,7 +1,7 @@
 import React from 'react';
 import './Affixes.scss';
 
-function Affixes({itemAffixes, rlvl}) {
+function Affixes({itemAffixes, rlvl, setAcAffixMinIfDefined, setAcAffixMaxIfDefined}) {
 
   function getRange(min, max) {
     if (min !== max) return `${min}-${max}`;
@@ -80,13 +80,13 @@ function Affixes({itemAffixes, rlvl}) {
   }
 
   // Display affix granting per-level bonuses
-  function getPerLevelIncrease(val) {
-    val = val / 8;
-    let minVal = rlvl * val;
+  function getPerLevelIncrease(value) {
+    value = value / 8;
+    let minVal = rlvl * value;
     minVal = Math.floor(minVal);
-    let maxVal = 99 * val;
+    let maxVal = 99 * value;
     maxVal = Math.floor(maxVal);
-    return `+(${val} Per Character Level) ${minVal}-${maxVal}`
+    return `+(${value} Per Character Level) ${minVal}-${maxVal}`
   }
 
   // Display affix granting charged-skill
@@ -109,7 +109,6 @@ function Affixes({itemAffixes, rlvl}) {
           return `(${chance[0]}-${chance[1]})% Chance To Cast Level (${lvl[0]}-${lvl[1]}) ${skill.toString()}`;
         }
         else {
-          console.log('Error (Affix Configuration)');
           return `Error (Affix Configuration)`;
         }
       }
@@ -119,7 +118,6 @@ function Affixes({itemAffixes, rlvl}) {
           return `(${chance[0]}-${chance[1]})% Chance To Cast Level ${lvl} ${skill.toString()}`;
         }
         else {
-          console.log('Error (Affix Configuration)');
           return `Error (Affix Configuration)`;
         }
       }
@@ -129,7 +127,6 @@ function Affixes({itemAffixes, rlvl}) {
           return `${chance}% Chance To Cast Level (${lvl[0]}-${lvl[1]}) ${skill.toString()}`;
         }
         else {
-          console.log('Error (Affix Configuration)');
           return `Error (Affix Configuration)`;
         }
       }
@@ -139,7 +136,6 @@ function Affixes({itemAffixes, rlvl}) {
       }
     }
     else {
-      console.log('Error (Affix Configuration)');
       return `Error (Affix Configuration)`;
     }
   }
@@ -167,6 +163,8 @@ function Affixes({itemAffixes, rlvl}) {
           break;
         case 'ac':
           affix = `${getPosNegMinMax(value.min, value.max)} Defense`;
+          setAcAffixMinIfDefined(value.min);
+          setAcAffixMaxIfDefined(value.max);
           break;
         case 'ac%':
           affix = `${getPosNegMinMax(value.min, value.max)}% Enhanced Defense`;

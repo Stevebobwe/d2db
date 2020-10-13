@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Affixes from '../Affixes/Affixes';
 import './UniqueItem.scss';
 
 function UniqueItem(props) {
   const { name, enabled, ladder, code, rarity, ilvl, rlvl, costmulti, affixes, invfile, baseItemsData } = props;
+
+  // min/max flat added defense from affix
+  const [acAffixMinIfDefined, setAcAffixMinIfDefined] = useState('');
+  const [acAffixMaxIfDefined, setAcAffixMaxIfDefined] = useState('');
+  // min/max percent added defense from affix
+  //const [acAffixMinIfDefined, setAcAffixMinIfDefined] = useState('');
+  //const [acAffixMaxIfDefined, setAcAffixMaxIfDefined] = useState('');
 
   // used for choosing a random invfile from the invfile arrays
   function getRandomInt(min, max) {
@@ -59,11 +66,56 @@ function UniqueItem(props) {
     durIfDefined = <div>Durability: {baseItemsData[code].dur}</div>;
   }
 
-  // display durability of item from baseItems.json or default to 1
-  let acIfDefined;
-  if (baseItemsData[code].ac) {
-    acIfDefined = <div>Base Defense: {baseItemsData[code].ac.min}-{baseItemsData[code].ac.max}</div>;
+
+
+
+
+
+  
+
+  //WIP BELOW
+  // item has base ac with no affix modifiers
+    // display base defense of item from baseItems.json
+    let baseAcIfDefined;
+    if (baseItemsData[code].ac) {
+      baseAcIfDefined = `${baseItemsData[code].ac.min}-${baseItemsData[code].ac.max}`;
+    }
+
+  // item has base ac with flat ac modifier
+    // display base defense of item from baseItems.json added with affix values
+    let flatAcAffixIfDefined;
+    if (baseItemsData[code].ac && acAffixMinIfDefined && acAffixMaxIfDefined) {
+      flatAcAffixIfDefined = `${baseItemsData[code].ac.min + acAffixMinIfDefined}-${baseItemsData[code].ac.max + acAffixMaxIfDefined}`
+    }
+
+  // item has base ac with percent modifier
+    // display base defense of item from baseItems.json multiplied with affix values
+    let percentAcAffixIfDefined;
+
+
+  // item has base ac with flat and percent modifiers
+
+  //WIP ABOVE
+
+
+
+  
+  
+  
+
+  
+
+
+
+  let displayCalculatedAcIfDefined;
+  if (baseAcIfDefined && flatAcAffixIfDefined) {
+    displayCalculatedAcIfDefined = <div><span>Defense: <span className="text-blue">{flatAcAffixIfDefined}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>(Base Defense: {baseAcIfDefined})</span></div>
   }
+  
+
+
+
+
 
 
 
@@ -93,10 +145,12 @@ function UniqueItem(props) {
         {qlvlIfDefined}
         <div>Required Level: {rlvl}</div>
 
-        {acIfDefined}
+        {/* {acIfDefined} */}
+        {/* <div className="calculatedAC">{acAffixIfDefined}</div> */}
+        {displayCalculatedAcIfDefined}
 
         {durIfDefined}
-        <Affixes itemAffixes={affixes} rlvl={rlvl} />
+        <Affixes itemAffixes={affixes} rlvl={rlvl} setAcAffixMinIfDefined={setAcAffixMinIfDefined} setAcAffixMaxIfDefined={setAcAffixMaxIfDefined}/>
         <div>{ladderOnly}</div>
       </div>
     </li>
