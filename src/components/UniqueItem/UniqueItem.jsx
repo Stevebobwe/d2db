@@ -6,11 +6,11 @@ function UniqueItem(props) {
   const { name, enabled, ladder, code, rarity, ilvl, rlvl, costmulti, affixes, invfile, baseItemsData } = props;
 
   // min/max flat added defense from affix
-  const [acAffixMinIfDefined, setAcAffixMinIfDefined] = useState('');
-  const [acAffixMaxIfDefined, setAcAffixMaxIfDefined] = useState('');
+  const [flatAcAffixMinIfDefined, setFlatAcAffixMinIfDefined] = useState('');
+  const [flatAcAffixMaxIfDefined, setFlatAcAffixMaxIfDefined] = useState('');
   // min/max percent added defense from affix
-  //const [acAffixMinIfDefined, setAcAffixMinIfDefined] = useState('');
-  //const [acAffixMaxIfDefined, setAcAffixMaxIfDefined] = useState('');
+  const [percentAcAffixMinIfDefined, setPercentAcAffixMinIfDefined] = useState('');
+  const [percentAcAffixMaxIfDefined, setPercentAcAffixMaxIfDefined] = useState('');
 
   // used for choosing a random invfile from the invfile arrays
   function getRandomInt(min, max) {
@@ -71,47 +71,68 @@ function UniqueItem(props) {
 
 
 
-  
-
-  //WIP BELOW
-  // item has base ac with no affix modifiers
-    // display base defense of item from baseItems.json
-    let baseAcIfDefined;
-    if (baseItemsData[code].ac) {
-      baseAcIfDefined = `${baseItemsData[code].ac.min}-${baseItemsData[code].ac.max}`;
-    }
-
-  // item has base ac with flat ac modifier
-    // display base defense of item from baseItems.json added with affix values
-    let flatAcAffixIfDefined;
-    if (baseItemsData[code].ac && acAffixMinIfDefined && acAffixMaxIfDefined) {
-      flatAcAffixIfDefined = `${baseItemsData[code].ac.min + acAffixMinIfDefined}-${baseItemsData[code].ac.max + acAffixMaxIfDefined}`
-    }
-
-  // item has base ac with percent modifier
-    // display base defense of item from baseItems.json multiplied with affix values
-    let percentAcAffixIfDefined;
-
-
-  // item has base ac with flat and percent modifiers
-
-  //WIP ABOVE
 
 
 
-  
-  
-  
+  // WIP BELOW
 
-  
+    // item has base ac with no affix modifiers
+      // display base defense of item from baseItems.json
+      let baseAcIfDefined;
+      if (baseItemsData[code].ac) {
+        baseAcIfDefined = `${baseItemsData[code].ac.min}-${baseItemsData[code].ac.max}`;
+      }
+
+    // item has base ac with flat ac modifier
+      // display base defense of item from baseItems.json added with affix values
+      let flatAcAffixIfDefined;
+      if (baseItemsData[code].ac && flatAcAffixMinIfDefined && flatAcAffixMaxIfDefined) {
+        flatAcAffixIfDefined = `${baseItemsData[code].ac.min + flatAcAffixMinIfDefined}-${baseItemsData[code].ac.max + flatAcAffixMaxIfDefined}`
+      }
+
+    // item has base ac with percent modifier
+      let percentAcAffixIfDefined;
+
+    // item has base ac with flat and percent modifiers
+    
+      // display base defense of item from baseItems.json multiplied with affix values
+      
+
+    
+      let displayCalculatedAcIfDefined;
+      if (baseAcIfDefined && flatAcAffixIfDefined) {
+        displayCalculatedAcIfDefined = <div><span>Defense: <span className="text-blue">{flatAcAffixIfDefined}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>(Base Defense: {baseAcIfDefined})</span></div>
+      }
 
 
 
-  let displayCalculatedAcIfDefined;
-  if (baseAcIfDefined && flatAcAffixIfDefined) {
-    displayCalculatedAcIfDefined = <div><span>Defense: <span className="text-blue">{flatAcAffixIfDefined}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>(Base Defense: {baseAcIfDefined})</span></div>
-  }
-  
+      // TODO: Test if re-render behavior is correct, seeing more console logs than expected
+      // if item type has base defense stat
+      if (baseItemsData[code].ac) {
+        console.log('debug');
+        console.log(name);
+        if (baseItemsData[code].ac.min && baseItemsData[code].ac.max) {
+          console.log('db-1');
+
+          // has flatAC affix and percentAC affix
+          if (flatAcAffixMinIfDefined && flatAcAffixMaxIfDefined && percentAcAffixMinIfDefined && percentAcAffixMaxIfDefined) {
+            console.log('db-2');
+          }
+          // has flatAC affix only
+          else if (flatAcAffixMinIfDefined && flatAcAffixMaxIfDefined && !percentAcAffixMinIfDefined && !percentAcAffixMaxIfDefined) {
+            console.log('db-3');
+          }
+          // has percentAC affix only
+          else if (!flatAcAffixMinIfDefined && !flatAcAffixMaxIfDefined && percentAcAffixMinIfDefined && percentAcAffixMaxIfDefined) {
+            console.log('db-4');
+          }
+
+        }
+      }
+      console.log(name);
+
+  // WIP ABOVE
+
 
 
 
@@ -126,10 +147,6 @@ function UniqueItem(props) {
   if (ladder === true) {
     ladderOnly = <div>(Ladder Only)</div>;
   }
-
-  console.log('testingnow');
-  console.log(affixes);
-  // Start setting up actual layout and hook in images/base-item stats
 
   return (
     <li className='uniqueItem'>
@@ -150,7 +167,14 @@ function UniqueItem(props) {
         {displayCalculatedAcIfDefined}
 
         {durIfDefined}
-        <Affixes itemAffixes={affixes} rlvl={rlvl} setAcAffixMinIfDefined={setAcAffixMinIfDefined} setAcAffixMaxIfDefined={setAcAffixMaxIfDefined}/>
+        <Affixes
+          itemAffixes={affixes}
+          rlvl={rlvl}
+          setFlatAcAffixMinIfDefined={setFlatAcAffixMinIfDefined}
+          setFlatAcAffixMaxIfDefined={setFlatAcAffixMaxIfDefined}
+          setPercentAcAffixMinIfDefined={setPercentAcAffixMinIfDefined}
+          setPercentAcAffixMaxIfDefined={setPercentAcAffixMaxIfDefined}
+        />
         <div>{ladderOnly}</div>
       </div>
     </li>

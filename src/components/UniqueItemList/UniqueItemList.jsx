@@ -57,10 +57,6 @@ function UniqueItemList() {
     filteredUniqueItemsData = filteredUniqueItemsData.filter(filterFn);
   });
 
-  console.log('TEST');
-  console.log(BaseItemsData['amu']);
-  //console.log(BaseItemsData.amu.name);
-
   const itemList = filteredUniqueItemsData
     .map(item => {
       return <UniqueItem {...item} baseItemsData={BaseItemsData}/>;

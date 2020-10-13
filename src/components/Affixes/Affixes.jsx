@@ -1,7 +1,7 @@
 import React from 'react';
 import './Affixes.scss';
 
-function Affixes({itemAffixes, rlvl, setAcAffixMinIfDefined, setAcAffixMaxIfDefined}) {
+function Affixes({itemAffixes, rlvl, setFlatAcAffixMinIfDefined, setFlatAcAffixMaxIfDefined, setPercentAcAffixMinIfDefined, setPercentAcAffixMaxIfDefined}) {
 
   function getRange(min, max) {
     if (min !== max) return `${min}-${max}`;
@@ -141,12 +141,12 @@ function Affixes({itemAffixes, rlvl, setAcAffixMinIfDefined, setAcAffixMaxIfDefi
   }
 
   const affixes = itemAffixes.map((affixObject) => {
-    console.log(affixObject);
+    //console.log(affixObject);
 
     let affix;
     for (const [key, value] of Object.entries(affixObject)) {
-      console.log(key);
-      console.log(value);
+      //console.log(key);
+      //console.log(value);
 
       switch (key) {
         case 'abs-cold%':
@@ -163,11 +163,13 @@ function Affixes({itemAffixes, rlvl, setAcAffixMinIfDefined, setAcAffixMaxIfDefi
           break;
         case 'ac':
           affix = `${getPosNegMinMax(value.min, value.max)} Defense`;
-          setAcAffixMinIfDefined(value.min);
-          setAcAffixMaxIfDefined(value.max);
+          setFlatAcAffixMinIfDefined(value.min);
+          setFlatAcAffixMaxIfDefined(value.max);
           break;
         case 'ac%':
           affix = `${getPosNegMinMax(value.min, value.max)}% Enhanced Defense`;
+          setPercentAcAffixMinIfDefined(value.min);
+          setPercentAcAffixMaxIfDefined(value.max);
           break;
         case 'ac-miss':
           affix = `${getPosNegMinMax(value.min, value.max)} Defense vs. Missile`;
